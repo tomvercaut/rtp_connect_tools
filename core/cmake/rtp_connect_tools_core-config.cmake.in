@@ -1,0 +1,9 @@
+@PACKAGE_INIT@
+
+find_package(Boost ${RTP_CONNECT_TOOLS_DEP_BOOST_VERSION} EXACT)
+find_package(fmt ${RTP_CONNECT_TOOLS_DEP_FMT_VERSION} EXACT REQUIRED)
+find_package(spdlog ${RTP_CONNECT_TOOLS_DEP_SPDLOG_VERSION} EXACT REQUIRED)
+
+if (NOT TARGET rtp_connect_tools_core)
+    include(${CMAKE_CURRENT_LIST_DIR}/rtp_connect_tools_core-targets.cmake)
+endif()
