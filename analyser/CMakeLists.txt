@@ -10,14 +10,13 @@ add_lib(
         LIB_CMAKE_NAMESPACE rtp-connect-tools
         LIB_ALIAS_NAME analyser
         LIB_VERSION ${PROJECT_VERSION}
-        LIB_PUBLIC_SOURCES
+        LIB_PUBLIC_HEADERS
             include/rtp_connect_tools/analyser/analyse.h
             include/rtp_connect_tools/analyser/machine_profile.h
             include/rtp_connect_tools/analyser/reporter.h
         LIB_PRIVATE_SOURCES
             src/analyse.cpp
             src/machine_profile.cpp
-        LIB_VERSION ${rtp_connect_tools_analyser_VERSION}
         LIB_PRIVATE_LIBRARIES
             rtp-connect-tools::core
             Boost::headers

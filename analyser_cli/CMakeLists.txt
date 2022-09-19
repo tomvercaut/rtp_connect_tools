@@ -10,7 +10,7 @@ add_lib(
         LIB_CMAKE_NAMESPACE rtp-connect-tools
         LIB_ALIAS_NAME analyser_cli_dep
         LIB_VERSION ${PROJECT_VERSION}
-        LIB_PUBLIC_SOURCES
+        LIB_PUBLIC_HEADERS
             include/rtp_connect_tools/analyser/cli/app_launch.h
             include/rtp_connect_tools/analyser/cli/reporter_cli.h
         LIB_PRIVATE_SOURCES
