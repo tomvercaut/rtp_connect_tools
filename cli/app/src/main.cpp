@@ -1,6 +1,5 @@
-#include "rtp_connect_tools/analyser/cli/app_name.h"
-
 #include "rtp_connect_tools/analyser/cli/app_launch.h"
+#include "rtp_connect_tools/analyser/cli/app_name.h"
 
 namespace cli = rtp::connect::tools::analyser::cli;
 

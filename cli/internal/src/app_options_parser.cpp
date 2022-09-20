@@ -57,4 +57,4 @@ auto ParseAppOptions(const std::string& app_name, int argc, char** argv) -> AppO
   }
   return ao;
 }
-}  // namespace rtp::connect::tools::analyser::cli::cli
+}  // namespace rtp::connect::tools::analyser::cli

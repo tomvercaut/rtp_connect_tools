@@ -11,4 +11,5 @@ option(BUILD_RTP_CONNECT_TOOLS_TESTS "Build tests" ON)
 
 add_subdirectory(core)
 add_subdirectory(analyser)
-add_subdirectory(analyser_cli)
+add_subdirectory(cli)
+#add_subdirectory(analyser_cli)

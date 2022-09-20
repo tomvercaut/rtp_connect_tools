@@ -7,7 +7,6 @@
 namespace rtp::connect::tools::analyser::cli {
 
 namespace core = rtp::connect::tools::core;
-namespace analyser = rtp::connect::tools::analyser;
 
 ReporterCli::ReporterCli(core::Rtp* rtp) : rtp_{rtp} {}
 

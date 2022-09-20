@@ -1,3 +1,0 @@
-namespace rtp::connect::tools::analyser::cli {
-    const char* APP_NAME{"@F_APP_NAME@"};
-}

@@ -6,11 +6,11 @@
 #include <filesystem>
 #include <iostream>
 
+#include "rtp_connect_tools/analyser/cli/reporter_cli.h"
 #include "app_options_parser.h"
-#include "rtp_connect_tools/core/parser.h"
 #include "rtp_connect_tools/analyser/analyse.h"
 #include "rtp_connect_tools/analyser/machine_profile.h"
-#include "rtp_connect_tools/analyser/cli/reporter_cli.h"
+#include "rtp_connect_tools/core/parser.h"
 
 namespace rtp::connect::tools::analyser::cli {
 
