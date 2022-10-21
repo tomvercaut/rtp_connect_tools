@@ -24,7 +24,7 @@ auto InternalParseMachineProfile(MachineProfile& profile, toml::table& config)
   if (toml::array* arr = general["name_aliases"].as_array(); arr != nullptr) {
     arr->for_each([&](auto&& el) {
       if constexpr ((toml::is_string<decltype(el)>)) {
-        std::string alias = *el;
+        const std::string alias = *el;
         profile.name_aliases.push_back(alias);
       }
     });
@@ -67,6 +67,27 @@ auto ParseMachineProfile(MachineProfile& profile, const std::string& text)
     return 1;
   }
   return InternalParseMachineProfile(profile, config);
+}
+
+auto ListMachineProfiles(const std::filesystem::path& dir, std::string_view prefix)
+-> std::vector<analyser::MachineProfile> {
+  spdlog::trace("Getting a list of all machine profiles in {}", dir.string());
+  std::vector<analyser::MachineProfile> profiles;
+  for (const auto& dir_entry : std::filesystem::directory_iterator{dir}) {
+    if (!dir_entry.is_regular_file()) {
+      continue;
+    }
+    const auto& path = dir_entry.path();
+    const auto filename = path.filename();
+    if (!prefix.empty() && !filename.string().starts_with(prefix)) {
+      continue;
+    }
+    analyser::MachineProfile profile;
+    if (analyser::ReadMachineProfile(profile, dir_entry.path().string()) == 0) {
+      profiles.push_back(profile);
+    }
+  }
+  return profiles;
 }
 
 }  // namespace rtp::connect::tools::analyser

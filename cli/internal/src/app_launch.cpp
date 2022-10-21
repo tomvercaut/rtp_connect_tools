@@ -17,15 +17,6 @@ namespace rtp::connect::tools::analyser::cli {
 namespace core = rtp::connect::tools::core;
 namespace analyser = rtp::connect::tools::analyser;
 
-///
-/// List all the machine profiles in a directory.
-///
-/// Machine profile filenames are prefixed with machine_
-///
-/// \param dir directory path
-/// \return A list of machine profiles.
-auto ListMachineProfiles(const std::filesystem::path& dir)
-    -> std::vector<MachineProfile>;
 
 /// Get the default data directory is located [OS dependent].
 ///
@@ -53,7 +44,7 @@ auto AppLaunch(const std::string& app_name, int argc, char** argv) -> int {
 
   // Read all the machine profiles
   auto profiles =
-      ListMachineProfiles((std::filesystem::path{app_options.data_directory}));
+      analyser::ListMachineProfiles((std::filesystem::path{app_options.data_directory}));
   // Read the RTP file
   auto rtp = core::ParseRtpFile(app_options.input_file);
   // Create a reporter
@@ -104,26 +95,6 @@ auto LaunchAnalysis(const core::Rtp& rtp,
     return EXIT_FAILURE;
   }
   return EXIT_SUCCESS;
-}
-
-auto ListMachineProfiles(const std::filesystem::path& dir)
-    -> std::vector<analyser::MachineProfile> {
-  std::vector<analyser::MachineProfile> profiles;
-  for (const auto& dir_entry : std::filesystem::directory_iterator{dir}) {
-    if (!dir_entry.is_regular_file()) {
-      continue;
-    }
-    const auto& path = dir_entry.path();
-    const auto filename = path.filename();
-    if (!filename.string().starts_with("machine_")) {
-      continue;
-    }
-    analyser::MachineProfile profile;
-    if (analyser::ReadMachineProfile(profile, dir_entry.path().string()) == 0) {
-      profiles.push_back(profile);
-    }
-  }
-  return profiles;
 }
 
 auto DataDirectory() -> std::string {

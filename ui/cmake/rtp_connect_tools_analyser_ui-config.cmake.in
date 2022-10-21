@@ -1,0 +1,5 @@
+@PACKAGE_INIT@
+
+if (NOT TARGET rtp_connect_tools_analyser_ui)
+    include(${CMAKE_CURRENT_LIST_DIR}/rtp_connect_tools_analyser_ui-targets.cmake)
+endif()

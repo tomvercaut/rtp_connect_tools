@@ -14,18 +14,18 @@ class Reporter {
   auto operator=(Reporter&&) -> Reporter& = default;
   virtual ~Reporter() = default;
   ///
-  /// Report the number of leaves in a multi-leaf collimator, both the expected and effective number.
+  /// Report the number of leaves in a multi-leaf collimator, both the expected_ and effective number.
   /// \param field field definition
   /// \param control_point control point definition
   ///
   [[maybe_unused]] virtual void NumberOfLeaves(
       const rtp::connect::tools::core::Field& field, const rtp::connect::tools::core::ControlPoint& control_point) = 0;
   ///
-  /// Report the minimum distance between two leaves in a multi-leaf collimator, both the expected and the effective value.
+  /// Report the minimum distance between two leaves in a multi-leaf collimator, both the expected_ and the effective value_.
   /// \param field_index index to the field
   /// \param control_point_index index to the control point in the field
   /// \param leaf_index index to the leaf pair in the multi-leaf collimator
-  /// \param min_distance minimum expected distance (unit equal to the reported position of the leaves)
+  /// \param min_distance minimum expected_ distance (unit equal to the reported position of the leaves)
   ///
   [[maybe_unused]] virtual void MinimumLeafDistance(
       const rtp::connect::tools::core::Field& field, const rtp::connect::tools::core::ControlPoint& control_point,

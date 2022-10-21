@@ -207,10 +207,8 @@ auto ParsePlan(Plan& plan_def, std::vector<std::string>&& values) -> int {
                   size);
     return 1;
   }
-  if (values[static_cast<uint8_t>(PlanColumn::kKeyword)] !=
-      "EXTENDED_PLAN_DEF") {
-    spdlog::error(
-        "expected EXTENDED_PLAN_DEF as an identifier for the CSV line");
+  if (values[static_cast<uint8_t>(PlanColumn::kKeyword)] != "EXTENDED_PLAN_DEF") {
+    spdlog::error("expected EXTENDED_PLAN_DEF as an identifier for the CSV line");
     return 2;
   }
 
