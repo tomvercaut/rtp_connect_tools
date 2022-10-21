@@ -1,7 +1,9 @@
 #ifndef RTP_CONNECT_TOOLS_ANALYSER_MACHINE_PROFILE_H
 #define RTP_CONNECT_TOOLS_ANALYSER_MACHINE_PROFILE_H
 
+#include <filesystem>
 #include <string>
+#include <string_view>
 #include <vector>
 
 namespace rtp::connect::tools::analyser {
@@ -37,6 +39,17 @@ class MachineProfile {
 ///   - >0: an error was detected
 auto ParseMachineProfile(MachineProfile& profile, const std::string& text)
     -> int;
+
+///
+/// List all the machine profiles in a directory.
+///
+/// Machine profile filenames are prefixed with machine_
+///
+/// \param dir directory path
+/// \param prefix filename prefix of a machine profile [empty prefix is accepted]
+/// \return A list of machine profiles.
+auto ListMachineProfiles(const std::filesystem::path& dir, std::string_view prefix="machine_")
+    -> std::vector<MachineProfile>;
 }  // namespace rtp::connect::tools::analyser
 
 #endif  // RTP_CONNECT_TOOLS_ANALYSER_MACHINE_PROFILE_H

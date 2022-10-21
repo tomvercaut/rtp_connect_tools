@@ -25,13 +25,13 @@ void ReporterCli::NumberOfLeaves(const core::Field& field,
     }
   }
   auto msg =
-      fmt::format("[{} - CP {}]: Number of leaf on MLC a {} <-> expected {}\n",
+      fmt::format("[{} - CP {}]: Number of leaf on MLC a {} <-> expected_ {}\n",
                   field.field_id, control_point.control_pt_number,
                   control_point.mlc_a.size(), control_point.mlc_leaves);
 
   *stream_ << msg;
   msg =
-      fmt::format("[{} - CP {}]: Number of leaf on MLC b {} <-> expected {}\n",
+      fmt::format("[{} - CP {}]: Number of leaf on MLC b {} <-> expected_ {}\n",
                   field.field_id, control_point.control_pt_number,
                   control_point.mlc_b.size(), control_point.mlc_leaves);
   *stream_ << msg;
@@ -109,7 +109,7 @@ void ReporterCli::TreatmentInfo() {
 
 void ReporterCli::ClearDisplayedHeader() { display_header_ = false; }
 auto ReporterCli::DisplayedHeader() const -> bool {
-  return display_header_ == true;
+  return display_header_;
 }
 auto ReporterCli::HasRtp() const -> bool { return rtp_ != nullptr; }
 auto ReporterCli::HasOutputStream() const -> bool { return stream_ != nullptr; }
