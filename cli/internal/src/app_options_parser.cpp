@@ -3,12 +3,12 @@
 #include <boost/program_options.hpp>
 #include <iostream>
 
-
 namespace po = boost::program_options;
 
 namespace rtp::connect::tools::analyser::cli {
 
-auto Usage(const po::options_description& desc, const std::string& app_name) -> std::string {
+auto Usage(const po::options_description& desc, const std::string& app_name)
+    -> std::string {
   std::stringstream ss{""};
   ss << "Usage: ";
   ss << app_name;
@@ -17,7 +17,8 @@ auto Usage(const po::options_description& desc, const std::string& app_name) -> 
   return ss.str();
 }
 
-void MissingRequiredArgument(const std::string& app_name, const po::options_description& desc,
+void MissingRequiredArgument(const std::string& app_name,
+                             const po::options_description& desc,
                              const std::string& argument) {
   std::cerr << "Required input argument missing: " << argument << "\n\n";
   const auto usage = Usage(desc, app_name);
@@ -25,7 +26,8 @@ void MissingRequiredArgument(const std::string& app_name, const po::options_desc
   exit(1);
 }
 
-auto ParseAppOptions(const std::string& app_name, int argc, char** argv) -> AppOptions {
+auto ParseAppOptions(const std::string& app_name, int argc, char** argv)
+    -> AppOptions {
   po::options_description options{"Options"};
   options.add_options()("help,h", "Print application usage and help message")(
       "input,i", po::value<std::string>(), "RTP input file")(
@@ -50,7 +52,7 @@ auto ParseAppOptions(const std::string& app_name, int argc, char** argv) -> AppO
   if (vm.contains("output")) {
     ao.output_file = vm["output"].as<std::string>();
   } else {
-    MissingRequiredArgument(app_name, options, "output");
+    ao.output_file = "";
   }
   if (vm.contains("data-dir")) {
     ao.data_directory = vm["data-dir"].as<std::string>();

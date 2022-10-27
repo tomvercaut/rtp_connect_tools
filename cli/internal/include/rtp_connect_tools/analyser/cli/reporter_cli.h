@@ -21,6 +21,8 @@ class [[maybe_unused]] ReporterCli : public Reporter {
   auto operator=(ReporterCli&&) -> ReporterCli& = default;
 
   [[maybe_unused]] void Set(rtp::connect::tools::core::Rtp* rtp);
+  void Stream(std::ostream& stream);
+  void ClearStream();
 
   void NumberOfLeaves(const rtp::connect::tools::core::Field& field,
                       const rtp::connect::tools::core::ControlPoint& control_point) override;

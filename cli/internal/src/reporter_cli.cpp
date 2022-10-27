@@ -17,6 +17,14 @@ ReporterCli::~ReporterCli() = default;
   ClearDisplayedHeader();
 }
 
+void ReporterCli::Stream(std::ostream& stream) {
+  stream_ = &stream;
+}
+
+void ReporterCli::ClearStream() {
+  stream_ = nullptr;
+}
+
 void ReporterCli::NumberOfLeaves(const core::Field& field,
                                  const core::ControlPoint& control_point) {
   if (HasOutputStream()) {

@@ -4,11 +4,12 @@
 #include <spdlog/spdlog.h>
 
 #include <filesystem>
+#include <fstream>
 #include <iostream>
 
-#include "rtp_connect_tools/analyser/cli/reporter_cli.h"
 #include "app_options_parser.h"
 #include "rtp_connect_tools/analyser/analyse.h"
+#include "rtp_connect_tools/analyser/cli/reporter_cli.h"
 #include "rtp_connect_tools/analyser/machine_profile.h"
 #include "rtp_connect_tools/core/parser.h"
 
@@ -35,7 +36,6 @@ auto DataDirectory() -> std::string;
 
 auto AppLaunch(const std::string& app_name, int argc, char** argv) -> int {
   auto app_options = ParseAppOptions(app_name, argc, argv);
-  std::cout << app_options << std::endl;
 
   // If no data directory was provided, set the default data directory
   if (app_options.data_directory.empty()) {
@@ -59,12 +59,44 @@ auto AppLaunch(const std::string& app_name, int argc, char** argv) -> int {
   auto rtp = core::ParseRtpFile(app_options.input_file);
   // Create a reporter
   auto reporter = ReporterCli(&rtp);
-  return LaunchAnalysis(rtp, profiles, reporter);
+  std::ofstream output_stream;
+  // Open a file stream to report the analysis
+  try {
+    if (!app_options.output_file.empty()) {
+      output_stream.open(app_options.output_file);
+      if (!output_stream.is_open()) {
+        spdlog::error("Failed to open {}", app_options.output_file);
+        return EXIT_FAILURE;
+      }
+      reporter.Stream(output_stream);
+    }
+  } catch (const std::exception& ex) {
+    spdlog::error(ex.what());
+    return EXIT_FAILURE;
+  }
+
+  auto rv = LaunchAnalysis(rtp, profiles, reporter);
+
+  // Close the file stream if needed
+  try {
+    if (!app_options.output_file.empty()) {
+      output_stream.close();
+      reporter.Stream(std::cout);
+      if (output_stream.is_open()) {
+        spdlog::error("Failed to close {}", app_options.output_file);
+        return EXIT_FAILURE;
+      }
+    }
+  } catch (const std::exception& ex) {
+    spdlog::error(ex.what());
+    return EXIT_FAILURE;
+  }
+  return rv;
 }
 
 auto LaunchAnalysis(const core::Rtp& rtp,
-                         const std::vector<analyser::MachineProfile>& profiles,
-                         analyser::Reporter& reporter) -> int {
+                    const std::vector<analyser::MachineProfile>& profiles,
+                    analyser::Reporter& reporter) -> int {
   try {
     // Analyse
     analyser::Analyse(rtp, profiles, reporter);
