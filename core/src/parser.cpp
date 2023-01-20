@@ -2,8 +2,9 @@
 
 #include <spdlog/spdlog.h>
 
-#include <boost/algorithm/string.hpp>
 #include <fstream>
+
+#include "rtp_connect_tools/core/string/split.h"
 
 namespace rtp::connect::tools::core {
 
@@ -124,15 +125,18 @@ auto StrToRotationDirection(const std::string& s) -> RotationDirection {
 
 auto ParseCsvLine(std::string&& line) -> std::vector<std::string> {
   auto lin = std::move(line);
-  std::vector<std::string> vec;
-  boost::split(vec, lin, boost::is_any_of(","));
+  constexpr auto delim = std::string_view{","};
+  const auto vec = core::string::Split(std::string_view{lin}, delim);
+  std::vector<std::string> result;
+  result.reserve(vec.size());
   for (auto& value : vec) {
     if (value.starts_with("\"") && value.ends_with("\"")) {
-      value.erase(value.end() - 1, value.end());
-      value.erase(value.begin(), value.begin() + 1);
+      result.emplace_back(value.substr(1, value.length()-2));
+    } else {
+      result.emplace_back(value);
     }
   }
-  return vec;
+  return result;
 }
 
 auto ParsePlan(Plan& plan_def, std::vector<std::string>&& values) -> int {
@@ -193,7 +197,9 @@ auto ParsePlan(Plan& plan_def, std::vector<std::string>&& values) -> int {
   return 0;
 }
 
-[[maybe_unused]] auto ParseExtendedPlan(ExtendedPlan& plan_def, std::vector<std::string>&& values) -> int {
+[[maybe_unused]] auto ParseExtendedPlan(ExtendedPlan& plan_def,
+                                        std::vector<std::string>&& values)
+    -> int {
   auto size = values.size();
   auto n_columns = static_cast<uint8_t>(ExtendedPlanColumn::kCrc) + 1;
   if (size != n_columns) {
@@ -201,8 +207,10 @@ auto ParsePlan(Plan& plan_def, std::vector<std::string>&& values) -> int {
                   size);
     return 1;
   }
-  if (values[static_cast<uint8_t>(PlanColumn::kKeyword)] != "EXTENDED_PLAN_DEF") {
-    spdlog::error("expected EXTENDED_PLAN_DEF as an identifier for the CSV line");
+  if (values[static_cast<uint8_t>(PlanColumn::kKeyword)] !=
+      "EXTENDED_PLAN_DEF") {
+    spdlog::error(
+        "expected EXTENDED_PLAN_DEF as an identifier for the CSV line");
     return 2;
   }
 
@@ -210,16 +218,22 @@ auto ParsePlan(Plan& plan_def, std::vector<std::string>&& values) -> int {
   const std::string fullname_prefix = "FULLNAME=";
   const std::string comments_prefix = "PATIENTCOMMENTS=";
 
-  plan_def.encoding = values[static_cast<uint8_t>(ExtendedPlanColumn::kEncoding)];
-  if (const auto pos = plan_def.encoding.find(encoding_prefix); pos != std::string::npos) {
+  plan_def.encoding =
+      values[static_cast<uint8_t>(ExtendedPlanColumn::kEncoding)];
+  if (const auto pos = plan_def.encoding.find(encoding_prefix);
+      pos != std::string::npos) {
     plan_def.encoding.erase(pos, encoding_prefix.length());
   }
-  plan_def.fullname = values[static_cast<uint8_t>(ExtendedPlanColumn::kFullname)];
- if (const auto pos = plan_def.fullname.find(fullname_prefix); pos != std::string::npos) {
+  plan_def.fullname =
+      values[static_cast<uint8_t>(ExtendedPlanColumn::kFullname)];
+  if (const auto pos = plan_def.fullname.find(fullname_prefix);
+      pos != std::string::npos) {
     plan_def.fullname.erase(pos, fullname_prefix.length());
   }
-  plan_def.patient_comments = values[static_cast<uint8_t>(ExtendedPlanColumn::kPatientComments)];
-  if (const auto pos = plan_def.patient_comments.find(comments_prefix); pos != std::string::npos) {
+  plan_def.patient_comments =
+      values[static_cast<uint8_t>(ExtendedPlanColumn::kPatientComments)];
+  if (const auto pos = plan_def.patient_comments.find(comments_prefix);
+      pos != std::string::npos) {
     plan_def.patient_comments.erase(pos, comments_prefix.length());
   }
   return 0;

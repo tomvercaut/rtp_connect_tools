@@ -1,6 +1,5 @@
 #include "rtp_connect_tools/analyser/cli/app_launch.h"
 
-#include <boost/predef.h>
 #include <spdlog/spdlog.h>
 
 #include <filesystem>
@@ -128,7 +127,7 @@ auto ListMachineProfiles(const std::filesystem::path& dir)
 }
 
 auto DataDirectory() -> std::string {
-#ifdef BOOST_OS_WINDOWS
+#ifdef _WIN32
   return R"(C:/ProgramData/rtp-analyser)";
 #else
   static_assert(

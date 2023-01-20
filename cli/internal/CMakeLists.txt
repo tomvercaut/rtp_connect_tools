@@ -1,6 +1,5 @@
 include(../../cmake/versions.cmake)
 
-find_package(Boost ${RTP_CONNECT_TOOLS_DEP_BOOST_VERSION} EXACT)
 find_package(fmt ${RTP_CONNECT_TOOLS_DEP_FMT_VERSION} EXACT REQUIRED)
 find_package(CLI11 ${RTP_CONNECT_TOOLS_DEP_CLI11_VERSION} EXACT REQUIRED)
 find_package(spdlog ${RTP_CONNECT_TOOLS_DEP_SPDLOG_VERSION} EXACT REQUIRED)
@@ -26,7 +25,6 @@ add_lib(
         LIB_PRIVATE_LIBRARIES
             rtp-connect-tools::core
             rtp-connect-tools::analyser
-            Boost::headers
             spdlog::spdlog
             CLI11::CLI11
             fmt::fmt
