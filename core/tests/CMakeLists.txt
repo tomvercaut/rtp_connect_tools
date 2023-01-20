@@ -9,6 +9,7 @@ add_catch2_test(
         APP_PRIVATE_SOURCES
             src/main.cpp
             src/parser.cpp
+            src/split.cpp
         APP_PRIVATE_LIBRARIES
             rtp-connect-tools::core
             spdlog::spdlog
