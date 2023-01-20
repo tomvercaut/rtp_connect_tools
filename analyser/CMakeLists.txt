@@ -1,6 +1,5 @@
 include(../cmake/versions.cmake)
 
-find_package(Boost ${RTP_CONNECT_TOOLS_DEP_BOOST_VERSION} EXACT)
 find_package(fmt ${RTP_CONNECT_TOOLS_DEP_FMT_VERSION} EXACT REQUIRED)
 find_package(spdlog ${RTP_CONNECT_TOOLS_DEP_SPDLOG_VERSION} EXACT REQUIRED)
 find_package(tomlplusplus ${RTP_CONNECT_TOOLS_DEP_TOMLPLUSPLUS_VERSION} EXACT REQUIRED)
@@ -19,7 +18,6 @@ add_lib(
             src/machine_profile.cpp
         LIB_PRIVATE_LIBRARIES
             rtp-connect-tools::core
-            Boost::headers
             spdlog::spdlog
             fmt::fmt
             tomlplusplus::tomlplusplus
