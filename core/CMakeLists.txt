@@ -10,6 +10,7 @@ add_lib(
         LIB_ALIAS_NAME core
         LIB_VERSION ${PROJECT_VERSION}
         LIB_PUBLIC_HEADERS
+            include/rtp_connect_tools/core/string/split.h
             include/rtp_connect_tools/core/parser.h
             include/rtp_connect_tools/core/rtp.h
         LIB_PRIVATE_SOURCES
