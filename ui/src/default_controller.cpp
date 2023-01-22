@@ -2,7 +2,6 @@
 
 #include <spdlog/spdlog.h>
 
-#include <boost/algorithm/string.hpp>
 #include <chrono>
 #include <experimental/map>
 #include <filesystem>
