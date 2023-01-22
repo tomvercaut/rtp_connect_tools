@@ -17,7 +17,7 @@ namespace rtp::connect::tools::analyser {
 ///   - 0:  no errors where detected
 ///   - 1:  unable to find matching machine profile for treatment field
 ///   - 2:  number of leaves doesn't match between two leaf banks or the number
-///   of expected_ leaves.
+///   of expected leaves.
 ///   - 3:  minimum distance between two opposing leaves is less than the
 ///   distance described in the machine profile
 [[maybe_unused]] auto Analyse(const rtp::connect::tools::core::Rtp& rtp,
