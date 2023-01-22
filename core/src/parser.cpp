@@ -143,12 +143,12 @@ auto ParsePlan(Plan& plan_def, std::vector<std::string>&& values) -> int {
   auto size = values.size();
   auto n_columns = static_cast<int16_t>(PlanColumn::kCrc) + 1;
   if (size != n_columns) {
-    spdlog::error("expected_ {} columns in this line [actual={}]", n_columns,
+    spdlog::error("expected {} columns in this line [actual={}]", n_columns,
                   size);
     return 1;
   }
   if (values[static_cast<int16_t>(PlanColumn::kKeyword)] != "PLAN_DEF") {
-    spdlog::error("expected_ PLAN_DEF as an identifier for the CSV line");
+    spdlog::error("expected PLAN_DEF as an identifier for the CSV line");
     return 2;
   }
 
@@ -203,12 +203,12 @@ auto ParsePlan(Plan& plan_def, std::vector<std::string>&& values) -> int {
   auto size = values.size();
   auto n_columns = static_cast<uint8_t>(ExtendedPlanColumn::kCrc) + 1;
   if (size != n_columns) {
-    spdlog::error("expected_ {} columns in this line [actual={}]", n_columns,
+    spdlog::error("expected {} columns in this line [actual={}]", n_columns,
                   size);
     return 1;
   }
   if (values[static_cast<uint8_t>(PlanColumn::kKeyword)] != "EXTENDED_PLAN_DEF") {
-    spdlog::error("expected_ EXTENDED_PLAN_DEF as an identifier for the CSV line");
+    spdlog::error("expected EXTENDED_PLAN_DEF as an identifier for the CSV line");
     return 2;
   }
 
@@ -241,11 +241,11 @@ auto ParseRx(Rx& rxd, std::vector<std::string>&& values) -> int {
   auto size = values.size();
   constexpr auto ncol = 13;
   if (size != ncol) {
-    spdlog::error("expected_ {} columns in this line [actual={}]", ncol, size);
+    spdlog::error("expected {} columns in this line [actual={}]", ncol, size);
     return 1;
   }
   if (values[static_cast<int16_t>(RxColumn::kKeyword)] != "RX_DEF") {
-    spdlog::error("expected_ RX_DEF as an identifier for the CSV line");
+    spdlog::error("expected RX_DEF as an identifier for the CSV line");
     return 2;
   }
 
@@ -271,12 +271,12 @@ auto ParseSiteSetup(SiteSetup& site_setup, std::vector<std::string>&& values)
   auto size = values.size();
   constexpr auto ncol = 25;
   if (size != ncol) {
-    spdlog::error("expected_ {} columns in this line [actual={}]", ncol, size);
+    spdlog::error("expected {} columns in this line [actual={}]", ncol, size);
     return 1;
   }
   if (values[static_cast<int16_t>(SiteSetupColumn::kKeyword)] !=
       "SITE_SETUP_DEF") {
-    spdlog::error("expected_ SITE_SETUP_DEF as an identifier for the CSV line");
+    spdlog::error("expected SITE_SETUP_DEF as an identifier for the CSV line");
     return 2;
   }
 
@@ -337,11 +337,11 @@ auto ParseSim(Sim& sim, std::vector<std::string>&& values) -> int {
   auto size = values.size();
   constexpr auto n_col = 53;
   if (size != n_col) {
-    spdlog::error("expected_ {} columns in this line [actual={}]", n_col, size);
+    spdlog::error("expected {} columns in this line [actual={}]", n_col, size);
     return 1;
   }
   if (values[static_cast<int16_t>(SimColumn::kKeyword)] != "SIM_DEF") {
-    spdlog::error("expected_ SIM_DEF as an identifier for the CSV line");
+    spdlog::error("expected SIM_DEF as an identifier for the CSV line");
     return 2;
   }
 
@@ -436,11 +436,11 @@ auto ParseField(Field& field, std::vector<std::string>&& values) -> int {
   auto size = values.size();
   constexpr auto n_col = 52;
   if (size != n_col) {
-    spdlog::error("expected_ {} columns in this line [actual={}]", n_col, size);
+    spdlog::error("expected {} columns in this line [actual={}]", n_col, size);
     return 1;
   }
   if (values[static_cast<int16_t>(FieldColumn::kKeyword)] != "FIELD_DEF") {
-    spdlog::error("expected_ FIELD_DEF as an identifier for the CSV line");
+    spdlog::error("expected FIELD_DEF as an identifier for the CSV line");
     return 2;
   }
   field.rx_site_name = values[static_cast<int16_t>(FieldColumn::kRxSiteName)];
@@ -537,7 +537,7 @@ auto ParseExtendedField(ExtendedField& field, std::vector<std::string>&& values)
   auto size = values.size();
   constexpr auto n_col = 12;
   if (size != n_col) {
-    spdlog::error("expected_ {} columns in this line [actual={}]", n_col, size);
+    spdlog::error("expected {} columns in this line [actual={}]", n_col, size);
     return 1;
   }
   if (values[static_cast<int16_t>(ExtendedFieldColumn::kKeyword)] !=
@@ -574,12 +574,12 @@ auto ParseControlPoint(ControlPoint& cp, std::vector<std::string>&& values)
   auto size = values.size();
   constexpr auto n_col = 236;
   if (size != n_col) {
-    spdlog::error("expected_ {} columns in this line [actual={}]", n_col, size);
+    spdlog::error("expected {} columns in this line [actual={}]", n_col, size);
     return 1;
   }
   if (values[static_cast<int16_t>(ControlPointColumn::kKeyword)] !=
       "CONTROL_PT_DEF") {
-    spdlog::error("expected_ CONTROL_PT_DEF as an identifier for the CSV line");
+    spdlog::error("expected CONTROL_PT_DEF as an identifier for the CSV line");
     return 2;
   }
   cp.field_id = values[static_cast<int16_t>(ControlPointColumn::kFieldId)];
