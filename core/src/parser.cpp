@@ -22,7 +22,7 @@ namespace rtp::connect::tools::core {
       if (auto return_value = ParseRtpValues(rtp, std::move(vec));
           return_value != 0) {
         throw std::exception(
-            fmt::format("Failed to parse RTP value_. Error code: {}",
+            fmt::format("Failed to parse RTP value. Error code: {}",
                         return_value)
                 .c_str());
       }
@@ -543,7 +543,7 @@ auto ParseExtendedField(ExtendedField& field, std::vector<std::string>&& values)
   if (values[static_cast<int16_t>(ExtendedFieldColumn::kKeyword)] !=
       "EXTENDED_FIELD_DEF") {
     spdlog::error(
-        "expected_ EXTENDED_FIELD_DEF as an identifier for the CSV line");
+        "expected EXTENDED_FIELD_DEF as an identifier for the CSV line");
     return 2;
   }
   field.field_id = values[static_cast<int16_t>(ExtendedFieldColumn::kFieldId)];

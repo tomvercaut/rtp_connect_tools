@@ -21,7 +21,7 @@ class Reporter {
   [[maybe_unused]] virtual void NumberOfLeaves(
       const rtp::connect::tools::core::Field& field, const rtp::connect::tools::core::ControlPoint& control_point) = 0;
   ///
-  /// Report the minimum distance between two leaves in a multi-leaf collimator, both the expected and the effective value_.
+  /// Report the minimum distance between two leaves in a multi-leaf collimator, both the expected and the effective value.
   /// \param field_index index to the field
   /// \param control_point_index index to the control point in the field
   /// \param leaf_index index to the leaf pair in the multi-leaf collimator

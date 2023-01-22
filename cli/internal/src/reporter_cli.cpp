@@ -33,13 +33,13 @@ void ReporterCli::NumberOfLeaves(const core::Field& field,
     }
   }
   auto msg =
-      fmt::format("[{} - CP {}]: Number of leaf on MLC a {} <-> expected_ {}\n",
+      fmt::format("[{} - CP {}]: Number of leaf on MLC a {} <-> expected {}\n",
                   field.field_id, control_point.control_pt_number,
                   control_point.mlc_a.size(), control_point.mlc_leaves);
 
   *stream_ << msg;
   msg =
-      fmt::format("[{} - CP {}]: Number of leaf on MLC b {} <-> expected_ {}\n",
+      fmt::format("[{} - CP {}]: Number of leaf on MLC b {} <-> expected {}\n",
                   field.field_id, control_point.control_pt_number,
                   control_point.mlc_b.size(), control_point.mlc_leaves);
   *stream_ << msg;
